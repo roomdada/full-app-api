@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +19,13 @@ class CourseFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->word();
         return [
-            'name' => fake()->unique()->word(),
+            'name' => $name,
+            'slug' => Str::slug($name),
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 0, 100),
-            'image' => fake()->image_url(),
+            'image' => fake()->imageUrl(),
             'category_id' => Category::factory(),
             'user_id' => User::factory(),
         ];

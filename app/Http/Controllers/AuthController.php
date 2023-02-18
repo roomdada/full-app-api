@@ -27,7 +27,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'identifiants invalides !'
-            ], 401);
+            ], 404);
         }
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken('auth_token')->plainTextToken;

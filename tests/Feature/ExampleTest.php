@@ -30,4 +30,17 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(201);
     }
+
+
+    public function test_api_login_user_return_user_no_found() : void
+    {
+        $response = $this->postJson('/api/login', [
+            'email' => 'testi@dev.com',
+            'password' => 'passwd',
+        ]);
+
+        $response->assertStatus(404);
+    }
+
+
 }
