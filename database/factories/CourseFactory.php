@@ -26,7 +26,7 @@ class CourseFactory extends Factory
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 0, 100),
             'image' => fake()->imageUrl(),
-            'category_id' => Category::factory(),
+            'category_id' => Category::all()->random()->id,
             'user_id' => User::factory(),
         ];
     }

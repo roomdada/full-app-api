@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (! auth()->attempt($credentials)) {
-            return response()->json([
+          return response()->json([
                 'status' => false,
                 'message' => 'identifiants invalides !'
             ], 404);
