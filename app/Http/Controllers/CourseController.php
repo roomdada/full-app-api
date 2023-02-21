@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
-use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CourseController extends Controller
@@ -16,7 +14,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return CourseResource::collection(Course::latest()->get());
+        return view('services.index');
     }
 
     /**
@@ -30,7 +28,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCourseRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         //
     }
@@ -54,7 +52,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseRequest $request, Course $course): RedirectResponse
+    public function update(Request $request, Course $course): RedirectResponse
     {
         //
     }

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Resources\CategoryResource;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -16,21 +15,23 @@ class CategoryController extends Controller
      */
     public function index()
     {
-      return  CategoryResource::collection(\App\Models\Category::withCount('courses')->latest()->get());
+        return view('categories.index', [
+            'categories' => Category::withCount('courses')->latest()->get()
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create(): View
     {
-        //
+        return view('categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         //
     }
@@ -38,9 +39,11 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category): Response
+    public function show(Category $category): View
     {
-        //
+        return view('categories.show', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -54,7 +57,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
+    public function update(Request $request, Category $category): RedirectResponse
     {
         //
     }

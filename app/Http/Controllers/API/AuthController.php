@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Actions\User\StoreUserAction;
 use App\Http\Requests\StoreUserRequest;
@@ -23,6 +24,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+
         if (! auth()->attempt($credentials)) {
           return response()->json([
                 'status' => false,
@@ -42,7 +44,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        //$request->user()->currentAccessToken()->delete();
         return response()->json([
             'status' => true,
             'message' => 'déconnexion réussie !'
