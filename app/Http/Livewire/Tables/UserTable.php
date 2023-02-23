@@ -10,7 +10,7 @@ class UserTable extends Component implements \Filament\Tables\Contracts\HasTable
 
     protected function getTableQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return \App\Models\User::query()->latest();
+        return \App\Models\User::query()->provider()->withCount('services')->latest();
     }
 
     protected function getTableColumns(): array
@@ -20,6 +20,7 @@ class UserTable extends Component implements \Filament\Tables\Contracts\HasTable
             \Filament\Tables\Columns\TextColumn::make('full_name')->sortable()->searchable()->label('Nom complet'),
             \Filament\Tables\Columns\TextColumn::make('email')->sortable()->searchable()->label('Email'),
             \Filament\Tables\Columns\TextColumn::make('contact')->sortable()->searchable()->label('Téléphone'),
+            \Filament\Tables\Columns\TextColumn::make('services_count')->sortable()->searchable()->label('Nbr de service'),
         ];
     }
 

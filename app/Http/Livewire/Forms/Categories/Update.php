@@ -3,23 +3,32 @@
 namespace App\Http\Livewire\Forms\Categories;
 
 use Livewire\Component;
+use App\Models\Category;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
-use App\Actions\Category\StoreCategoryAction;
+use App\Actions\Category\UpdateCategoryAction;
 use Filament\Forms\Concerns\InteractsWithForms;
 
-class Create extends Component implements HasForms
+class Update extends Component implements HasForms
 {
-    use InteractsWithForms;
+     use InteractsWithForms;
 
     public $state = [
         'name' => '',
         'image' => '',
     ];
 
-    public function mount()
+    public $category;
+
+    public function mount(Category $category)
     {
+        $this->state = [
+            'name' => $category->name,
+            'image' => $category->image,
+        ];
+
+        $this->category = $category;
         $this->form->fill($this->state);
     }
 
@@ -36,17 +45,17 @@ class Create extends Component implements HasForms
         ];
     }
 
-    public function saveCategory(StoreCategoryAction $storeCategoryAction)
+    public function updateCategory(UpdateCategoryAction $updateCategoryAction)
     {
         $data = $this->validate();
         $categoryDTO = new \App\DataObjects\CategoryDataObject(...$data['state']);
-        $category = $storeCategoryAction->execute($categoryDTO);
-        flasher("La catégorie {$category->name} a été créée avec succès");
+        $updateCategoryAction->execute($categoryDTO, $this->category);
+        flasher("La catégorie a été modifiée avec succès");
         return redirect()->route('app.categories.index');
     }
 
     public function render()
     {
-        return view('livewire.forms.categories.create');
+        return view('livewire.forms.categories.update');
     }
 }

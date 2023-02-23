@@ -5,6 +5,9 @@ namespace App\Http\Livewire\Tables;
 use Filament\Tables;
 use Livewire\Component;
 use App\Models\Category;
+use Filament\Tables\Actions\BulkAction;
+use Illuminate\Database\Eloquent\Collection;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
@@ -27,6 +30,30 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
             Tables\Columns\TextColumn::make('courses_count')->sortable()->label('Services associés'),
 
          ];
+    }
+
+   protected function getTableActions(): array
+   {
+      return [
+        Action::make('editer')
+            ->label('')
+            ->icon('heroicon-o-pencil')
+            ->url(fn (Category $record): string => route('app.categories.edit', $record))
+
+      ];
+   }
+
+
+   protected function getTableBulkActions(): array
+    {
+        return [
+            BulkAction::make('Supprimer')
+                ->action(fn (Collection $records) => $records->each->delete())
+                ->requiresConfirmation()
+                ->modalSubheading('Êtes-vous sûr de vouloir supprimer ces catégories ?')
+                ->modalButton('Oui, je suis sûr')
+                ->deselectRecordsAfterCompletion()
+        ];
     }
 
     public function render()

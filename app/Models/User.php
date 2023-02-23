@@ -46,4 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeProvider($query)
+    {
+        return $query->where('is_admin', false);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

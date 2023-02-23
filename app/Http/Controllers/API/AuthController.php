@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Actions\User\StoreUserAction;
+use App\DataObjects\UserDataObject;
 use App\Http\Requests\StoreUserRequest;
 
 class AuthController extends Controller
 {
-    public function register(StoreUserRequest $request, StoreUserAction $storeUser)
+    public function register(StoreUserRequest $request, StoreUserAction $storeUserAction)
     {
-        $user = $storeUser->execute($request->validated());
+        $userDTO = (new UserDataObject(...$request->validated()));
+        $user  = $storeUserAction->execute($userDTO);
+
+
         return response()->json([
             'status' => true,
             'message' => 'compte crée avec succès !',
