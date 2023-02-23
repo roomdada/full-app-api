@@ -23,7 +23,8 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()->label('Créé le'),
             Tables\Columns\TextColumn::make('name')->sortable()->searchable()->label('Titre'),
-            Tables\Columns\TextColumn::make('courses_count')->sortable()->searchable()->label('Services associés'),
+            Tables\Columns\ImageColumn::make('image')->sortable()->searchable()->label('Image')->circular(),
+            Tables\Columns\TextColumn::make('courses_count')->sortable()->label('Services associés'),
 
          ];
     }
