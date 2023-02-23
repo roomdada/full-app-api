@@ -35,10 +35,16 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
    protected function getTableActions(): array
    {
       return [
-        Action::make('editer')
+      Action::make('show')
             ->label('')
+            ->color('primary')
+            ->icon('heroicon-o-eye')
+            ->url(fn (Category $record): string => route('app.categories.show', $record)),
+        Action::make('edit')
+            ->label('')
+            ->color('warning')
             ->icon('heroicon-o-pencil')
-            ->url(fn (Category $record): string => route('app.categories.edit', $record))
+            ->url(fn (Category $record): string => route('app.categories.edit', $record)),
 
       ];
    }
