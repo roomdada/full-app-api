@@ -14,13 +14,34 @@ class Course extends Model
 
     protected $guarded = [];
 
+    /**
+     * user
+     *
+     * @return BelongsTo
+     */
     public function user() : BelongsTo
     {
       return $this->belongsTo(User::class);
     }
 
+    /**
+     * category
+     *
+     * @return BelongsTo
+     */
     public function category() : BelongsTo
     {
       return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * scopePopular
+     *
+     * @param  mixed $query
+     * @return void
+     */
+    public function scopePopular($query)
+    {
+      return $query->latest();
     }
 }

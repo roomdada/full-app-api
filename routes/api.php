@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::apiResource('courses', CourseController::class);
 Route::apiResource('categories', CategoryController::class);
+Route::get('recents/categories', [CategoryController::class, 'recents']);
+Route::get('popular/courses', [CourseController::class, 'popular']);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');

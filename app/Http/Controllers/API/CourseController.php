@@ -67,4 +67,9 @@ class CourseController extends Controller
     {
         //
     }
+
+    public function popular()
+    {
+        return CourseResource::collection(Course::with('category')->popular()->take(6)->get());
+    }
 }

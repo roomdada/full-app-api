@@ -32,6 +32,9 @@ class Create extends Component implements HasForms
                 ->required(),
             FileUpload::make('state.image')
                 ->label('Image')
+                ->image()
+                ->imageResizeTargetHeight(300)
+                ->imageResizeTargetWidth(300)
                 ->required(),
         ];
     }

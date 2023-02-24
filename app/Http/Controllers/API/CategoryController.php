@@ -9,6 +9,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryController extends Controller
 {
@@ -63,8 +64,13 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category): RedirectResponse
+    public function destroy(Category $category)
     {
         //
     }
+
+     public function recents() : JsonResource
+     {
+        return CategoryResource::collection(\App\Models\Category::withCount('courses')->latest()->take(4)->get());
+     }
 }
