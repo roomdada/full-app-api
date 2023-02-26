@@ -22,11 +22,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
+    Route::post('courses', [CourseController::class, 'store']);
     Route::get('stats', StatsController::class);
 });
 
-Route::apiResource('courses', CourseController::class);
+Route::apiResource('courses', CourseController::class)->except('store');
 Route::apiResource('categories', CategoryController::class);
 Route::get('recents/categories', [CategoryController::class, 'recents']);
 Route::get('popular/courses', [CourseController::class, 'popular']);

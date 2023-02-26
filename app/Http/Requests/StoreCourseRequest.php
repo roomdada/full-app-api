@@ -11,7 +11,7 @@ class StoreCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|file',
+            'image' => 'nullable',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string',
+            'user_id' => 'required|exists:users,id',
         ];
     }
 }

@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'image' => "https://e-api.ddev.site/storage/" . $this->image,
+            'image' => "http://e-api.ddev.site/storage/" . $this->image,
             'courses_count' => $this->courses_count,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
