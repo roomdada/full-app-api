@@ -30,8 +30,11 @@ class CourseController extends Controller
     {
 
         // store image in storage
-        $image = $request->file('image')->store('courses');
-        $data['image'] = $image;
+        $courseImageUrl = $request->file('image')->store('courses', 'public');
+
+        $data = array_merge($request->except('image'), [
+            'image' => $courseImageUrl
+        ]);
 
         $courseDTO = new ServiceDataObject(...$data);
         $course = $storeCourseAction->execute($courseDTO);

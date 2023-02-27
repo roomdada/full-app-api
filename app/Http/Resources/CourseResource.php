@@ -18,7 +18,7 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'image' => $this->image,
+            'image' => "http://e-api.ddev.site/storage/" . $this->image,
             'category' => CategoryResource::make($this->category->load('courses')),
             'description' => $this->description,
             'created_at' => $this->created_at,

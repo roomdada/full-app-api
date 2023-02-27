@@ -20,6 +20,7 @@ final class StoreCourseAction
          'category_id' => $data->category_id,
           'user_id' => $data->user_id,
       ]);
+
       DB::commit();
       return $course;
    }

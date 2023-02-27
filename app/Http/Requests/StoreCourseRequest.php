@@ -22,7 +22,7 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|file',
+            'name' => 'required',
             'image' => 'nullable',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
