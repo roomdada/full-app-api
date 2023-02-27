@@ -6,6 +6,7 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Traits\FormatCreatedAt;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -38,6 +39,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'avatar',
+    ];
     /**
      * The attributes that should be cast.
      *
@@ -55,5 +59,12 @@ class User extends Authenticatable
     public function services()
     {
         return $this->hasMany(Course::class);
+    }
+
+    public function avatar(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->profil_photo_path ? asset('storage/'.$this->profil_photo_path) : "https://ui-avatars.com/api/?name={$this->full_name}&background=0D8ABC&color=fff&size=80"
+        );
     }
 }

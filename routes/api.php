@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('courses', [CourseController::class, 'store']);
     Route::get('stats', StatsController::class);
+    Route::get('user/courses', [CourseController::class, 'userCourses']);
 });
 
 Route::apiResource('courses', CourseController::class)->except('store');

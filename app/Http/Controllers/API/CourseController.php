@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Course;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\DataObjects\ServiceDataObject;
 use App\Http\Resources\CourseResource;
 use App\Actions\Course\StoreCourseAction;
-use App\DataObjects\ServiceDataObject;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 
@@ -74,5 +75,10 @@ class CourseController extends Controller
     public function popular()
     {
         return CourseResource::collection(Course::with('category')->popular()->take(6)->get());
+    }
+
+    public function userCourses(Request $request)
+    {
+       return CourseResource::collection($request->user()->services);
     }
 }
